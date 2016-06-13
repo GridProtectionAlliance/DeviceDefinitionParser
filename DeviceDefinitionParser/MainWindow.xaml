@@ -1,0 +1,41 @@
+﻿<Window x:Class="ConvertToXML.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeviceDefinitionParser"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1200">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button Click="Magic">
+                Magic
+            </Button>
+            <Button Click="ClearFileList">
+                Clear File List
+            </Button>
+            <Label HorizontalAlignment="Center">
+                Drag and Drop Below
+            </Label>
+            <Grid Background="Silver" Width="500" Height="500" AllowDrop="True" Drop="DropTest">
+            </Grid>
+            <CheckBox IsChecked="{Binding Simple, Mode=TwoWay}" Content="Simple" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding Reactance, Mode=TwoWay}" Content="Reactance" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding Takagi, Mode=TwoWay}" Content="Takagi" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding ModifiedTakagi, Mode=TwoWay}" Content="Modified Takagi" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding NovoselEtAl, Mode=TwoWay}" Content="Novosel Et Al" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Column="1">
+            <TextBox Name="parseResults" IsReadOnly="False" VerticalAlignment="Stretch">
+            </TextBox>
+        </ScrollViewer>
+    </Grid>
+
+</Window>
