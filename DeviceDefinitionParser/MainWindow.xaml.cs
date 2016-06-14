@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
+using Microsoft.Win32;
 
 namespace ConvertToXML
 {
@@ -54,8 +55,16 @@ namespace ConvertToXML
             }
             if (m_files.Count > 0)
             {
-                string outputXMLFile = m_files.Last();
-                outputXMLFile = outputXMLFile.Replace("csv", "xml");
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.AddExtension = true;
+                dialog.OverwritePrompt = true;
+                dialog.Filter = "XML files|*.xml|All Files|*.*";
+                dialog.InitialDirectory = Path.GetDirectoryName(m_files.Last());
+                if (dialog.ShowDialog() == false)
+                {
+                    return;
+                }
+                string outputXMLFile = dialog.FileName;
                 File.WriteAllText(outputXMLFile, m_parser.Result.ToString());
 
                 XDocument document = new XDocument();
@@ -67,14 +76,7 @@ namespace ConvertToXML
             m_parser.Clear();
         }
 
-        private void ClearFileList()
-        {
-            m_files.Clear();
-            m_parser.Clear();
-            parseResults.Text = "";
-        }
-
-        private void DropTest(object sender, DragEventArgs e)
+        private void Dropped(object sender, DragEventArgs e)
         {
             string[] newFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
             m_files.AddRange(newFiles);
@@ -91,7 +93,14 @@ namespace ConvertToXML
         private void ClearFileList(object sender, RoutedEventArgs e)
         {
             ClearFileList();
-        } 
+        }
+
+        private void ClearFileList()
+        {
+            m_files.Clear();
+            m_parser.Clear();
+            parseResults.Text = "File list cleared :)";
+        }
 
         #endregion
     }

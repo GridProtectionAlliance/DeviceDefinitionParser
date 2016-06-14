@@ -24,7 +24,7 @@
             <Label HorizontalAlignment="Center">
                 Drag and Drop Below
             </Label>
-            <Grid Background="Silver" Width="500" Height="500" AllowDrop="True" Drop="DropTest">
+            <Grid Background="Silver" Width="500" Height="500" AllowDrop="True" Drop="Dropped">
             </Grid>
             <CheckBox IsChecked="{Binding Simple, Mode=TwoWay}" Content="Simple" VerticalAlignment="Center"/>
             <CheckBox IsChecked="{Binding Reactance, Mode=TwoWay}" Content="Reactance" VerticalAlignment="Center"/>
