@@ -32,8 +32,8 @@
             <CheckBox IsChecked="{Binding ModifiedTakagi, Mode=TwoWay}" Content="Modified Takagi" VerticalAlignment="Center"/>
             <CheckBox IsChecked="{Binding NovoselEtAl, Mode=TwoWay}" Content="Novosel Et Al" VerticalAlignment="Center"/>
         </StackPanel>
-        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Column="1">
-            <TextBox Name="parseResults" IsReadOnly="False" VerticalAlignment="Stretch">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="1">
+            <TextBox Name="UserFeedback" IsReadOnly="False" VerticalAlignment="Stretch">
             </TextBox>
         </ScrollViewer>
     </Grid>

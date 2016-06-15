@@ -53,6 +53,7 @@ namespace ConvertToXML
                 m_parser.Input = input;
                 m_parser.ParseInput();
             }
+
             if (m_files.Count > 0)
             {
                 SaveFileDialog dialog = new SaveFileDialog();
@@ -71,7 +72,11 @@ namespace ConvertToXML
                 document = XDocument.Parse(m_parser.Result.ToString());
                 document.Save(outputXMLFile);
 
-                parseResults.Text = document.ToString();
+                UserFeedback.Text = document.ToString();
+            }
+            else
+            {
+                UserFeedback.Text = "No files to perfom magic on :(";
             }
             m_parser.Clear();
         }
@@ -81,11 +86,11 @@ namespace ConvertToXML
             string[] newFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
             m_files.AddRange(newFiles);
 
-            parseResults.Text = "";
+            UserFeedback.Text = "Files added.\nPress the Magic button to process files.\n";
             foreach (string file in m_files)
             {
-                parseResults.Text += file;
-                parseResults.Text += "\n";
+                UserFeedback.Text += file;
+                UserFeedback.Text += "\n";
             }
 
         }
@@ -99,7 +104,7 @@ namespace ConvertToXML
         {
             m_files.Clear();
             m_parser.Clear();
-            parseResults.Text = "File list cleared :)";
+            UserFeedback.Text = "File list cleared :)";
         }
 
         #endregion
