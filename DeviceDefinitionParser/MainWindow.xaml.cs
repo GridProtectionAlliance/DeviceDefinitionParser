@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using Microsoft.Office.Interop.Excel;
 
 namespace ConvertToXML
 {
@@ -16,7 +17,8 @@ namespace ConvertToXML
         #region [ Members ]
         // Fields
         private CSVtoXMLParser m_parser;
-        List<string> m_files;
+        private List<string> m_files;
+        private Microsoft.Office.Interop.Excel.Application m_application;
 
 
         #endregion
@@ -28,6 +30,8 @@ namespace ConvertToXML
             InitializeComponent();
             m_files = new List<string>();
             m_parser = new CSVtoXMLParser();
+            m_application = new Microsoft.Office.Interop.Excel.Application();
+            m_application.Visible = false;
             DataContext = m_parser;
         }
 
@@ -39,19 +43,44 @@ namespace ConvertToXML
             Parse();
         }
 
+        public string[] ReadExcelFile(string input)
+        {
+            Workbook workbook = m_application.Workbooks.Open(input);
+            Worksheet worksheet = workbook.Sheets[2];
+
+            List<string> cellValues = new List<string>();
+
+            int columnCount = worksheet.UsedRange.Columns.Count;
+            int rowCount = worksheet.UsedRange.Rows.Count;
+
+            object[,] usedCells = worksheet.UsedRange.Value2;
+            for (int row = 1; row < rowCount; row++)
+            {
+                for(int column = 1; column < columnCount; column++)
+                {
+                    cellValues.Add((usedCells[row, column]?.ToString() ?? ""));
+                }
+            }
+
+            
+            string[] result = cellValues.ToArray();
+
+
+            return result;
+        }
+
         private void Parse()
         {
-            foreach (string csvToLoad in m_files)
+
+            foreach (string excelFile in m_files)
             {
-                char[] splitOn = new char[] { ',', '\n', '\r' };
-                char[] trimOn = new char[] { '\n', '\r' };
-
-                string[] input = File.ReadAllText(csvToLoad).Split(splitOn);
-                foreach (string word in input)
-                    word.TrimStart(trimOn);
-
-                m_parser.Input = input;
-                m_parser.ParseInput();
+                if (Path.GetExtension(excelFile) == ".xlsx")
+                {
+                    string[] input = ReadExcelFile(excelFile);
+                    m_parser.Input = input;
+                    m_parser.ParseInput();
+                }
+                
             }
 
             if (m_files.Count > 0)
