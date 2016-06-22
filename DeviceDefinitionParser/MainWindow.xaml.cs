@@ -50,13 +50,13 @@ namespace ConvertToXML
 
             List<string> cellValues = new List<string>();
 
-            int columnCount = worksheet.UsedRange.Columns.Count;
+            int columnCount = 2;
             int rowCount = worksheet.UsedRange.Rows.Count;
 
             object[,] usedCells = worksheet.UsedRange.Value2;
-            for (int row = 1; row < rowCount; row++)
+            for (int row = 1; row <= rowCount; row++)
             {
-                for(int column = 1; column < columnCount; column++)
+                for(int column = 1; column <= columnCount; column++)
                 {
                     cellValues.Add((usedCells[row, column]?.ToString() ?? ""));
                 }
