@@ -160,7 +160,25 @@ namespace ConvertToXML
             {
                 lineStrings += line.ToString();
             }
-            string result =
+
+            string result = "<device id=\"" + ID + "\">\n";
+            List<string> attributes = new List<string>() { "Make", "Model", "StationID", "StationName", "StationLatitude", "StationLongitude" };
+
+            result += "<attributes>\n";
+            foreach (string attribute in attributes)
+            {
+                if (m_attributes[attribute] != "")
+                {
+                    result += "<" + attribute.ToLower() + ">" + m_attributes[attribute] + "</" + attribute.ToLower() + ">\n";
+                }
+            }
+            result += "</attributes>\n";
+
+            result += "<lines>\n" + lineStrings + "</lines>\n" + "</device>\n";
+
+
+
+            string resultBackup =
                 "<device id=\"" + ID + "\">\n"
                 + "<attributes>\n"
                 + "<make>" + Make + "</make>\n"

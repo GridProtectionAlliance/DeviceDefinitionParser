@@ -293,7 +293,70 @@ namespace ConvertToXML
 
         public override string ToString()
         {
-            string result =
+            string result = "<line id=\"" + ID + "\">\n";
+            List<string> lineParameters = new List<string>() { "Name", "Voltage", "Ratings50F", "Length", "EndStationID", "EndStationName" };
+            List<string> impedances = new List<string>() { "R1", "X1", "R0", "R1" };
+            List<string> channels = new List<string>() { "VA", "VB", "VC", "IA", "IB", "IC", "IR" };
+
+            foreach (string field in lineParameters)
+            {
+                if (m_attributes[field] != "")
+                {
+                    result += "<" + field.ToLower() + ">" + m_attributes[field] + "</" + field.ToLower() + ">\n";
+                }
+            }
+
+            bool impedancesIncluded = false;
+
+            foreach (string impedance in impedances)
+            {
+                if (m_attributes[impedance] != "")
+                {
+                    impedancesIncluded = true;
+                    break;
+                }
+            }
+
+            if (impedancesIncluded == true)
+            {
+                result += "<impedances>\n";
+                foreach (string impedance in impedances)
+                {
+                    if (m_attributes[impedance] != "")
+                    {
+                        result += "<" + impedance.ToLower() + ">" + m_attributes[impedance] + "</" + impedance.ToLower() + ">\n";
+                    }
+                }
+                result += "</impedances>\n";
+            }
+
+            bool channelsIncluded = false;
+
+            foreach (string impedance in impedances)
+            {
+                if (m_attributes[impedance] != "")
+                {
+                    channelsIncluded = true;
+                    break;
+                }
+            }
+
+            if (channelsIncluded == true)
+            {
+                result += "<channels>\n";
+                foreach (string channel in channels)
+                {
+                    if (m_attributes[channel] != "")
+                    {
+                        result += "<" + channel.ToLower() + ">" + m_attributes[channel] + "</" + channel.ToLower() + ">\n";
+                    }
+                }
+                result += "</channels>\n";
+            }
+
+            result += "</line\n>";
+
+            string resultBackup =
                 "<line id=\"" + ID + "\">\n"
                 + "<name>" + Name + "</name>\n"
                 + "<voltage>" + Voltage + "</voltage>\n"
