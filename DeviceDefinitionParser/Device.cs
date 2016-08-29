@@ -22,13 +22,13 @@ namespace ConvertToXML
         {
             m_attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
-                {"ID", ""},
-                {"Make", ""},
-                {"Model", ""},
-                {"StationID", ""},
-                {"StationName", ""},
-                {"StationLatitude", ""},
-                {"StationLongitude", ""}
+                {"id", ""},
+                {"make", ""},
+                {"model", ""},
+                {"stationID", ""},
+                {"stationName", ""},
+                {"stationLatitude", ""},
+                {"stationLongitude", ""}
             };
             m_lines = new List<Line>();
         }
@@ -161,37 +161,19 @@ namespace ConvertToXML
                 lineStrings += line.ToString();
             }
 
-            string result = "<device id=\"" + ID + "\">\n";
-            List<string> attributes = new List<string>() { "Make", "Model", "StationID", "StationName", "StationLatitude", "StationLongitude" };
+            string result = "<device id=\"" + ID + "\">\n<attributes>\n";
 
-            result += "<attributes>\n";
-            foreach (string attribute in attributes)
+            foreach (KeyValuePair<string, string> attribute in m_attributes)
             {
-                if (m_attributes[attribute] != "")
+                if (attribute.Value != "" && attribute.Key != "id")
                 {
-                    result += "<" + attribute.ToLower() + ">" + m_attributes[attribute] + "</" + attribute.ToLower() + ">\n";
+                    result += "<" + attribute.Key + ">" + attribute.Value + "</" + attribute.Key + ">\n";
                 }
             }
             result += "</attributes>\n";
 
             result += "<lines>\n" + lineStrings + "</lines>\n" + "</device>\n";
 
-
-
-            string resultBackup =
-                "<device id=\"" + ID + "\">\n"
-                + "<attributes>\n"
-                + "<make>" + Make + "</make>\n"
-                + "<model>" + Model + "</model>\n"
-                + "<stationID>" + StationID + "</stationID>\n"
-                + "<stationName>" + StationName + "</stationName>\n"
-                + "<stationLatitude>" + StationLatitude + "</stationLatitude>\n"
-                + "<stationLongitude>" + StationLongitude + "</stationLongitude>\n"
-                + "</attributes>\n"
-                + "<lines>\n"
-                + lineStrings
-                + "</lines>\n"
-                + "</device>\n";
             return result;
         }
 

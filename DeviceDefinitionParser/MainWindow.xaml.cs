@@ -124,7 +124,7 @@ namespace ConvertToXML
                 document.Save(outputXMLFile);
 
                 ClearFileList();
-                UserFeedback.Text = "Tada!";
+                UserFeedback.Text = document.ToString();
             }
             else
             {

@@ -131,7 +131,7 @@ namespace ConvertToXML
             if (NovoselEtAl)
                 analytics += "<faultLocation assembly=\"FaultAlgorithms.dll\" method=\"FaultAlgorithms.FaultLocationAlgorithms.NovoselEtAl\" />\n";
 
-               string devices = "";
+            string devices = "";
             foreach (Device device in Devices)
             {
                 devices += device.ToString();

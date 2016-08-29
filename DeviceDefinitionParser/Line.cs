@@ -11,7 +11,11 @@ namespace ConvertToXML
         #region [ Members ]
 
         //Fields
-        Dictionary<string, string> m_attributes;
+        private List<string> m_lineParameters;
+        private List<string> m_impedances;
+        private List<string> m_channels;
+        private Dictionary<string, string> m_attributes;
+
 
         #endregion
 
@@ -19,15 +23,19 @@ namespace ConvertToXML
 
         public Line()
         {
+            m_lineParameters = new List<string>() { "name", "voltage", "ratings50F", "length", "endStationID", "endStationName" };
+            m_impedances = new List<string>() { "R1", "X1", "R0", "R1" };
+            m_channels = new List<string>() { "VA", "VB", "VC", "IA", "IB", "IC", "IR" };
+
             m_attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
-                {"ID", "" },
-                {"Name", "" },
-                {"Voltage", "" },
-                {"Ratings50F", "" },
-                {"Length", "" },
-                {"EndStationID", "" },
-                {"EndStationName", "" },
+                {"id", "" },
+                {"name", "" },
+                {"voltage", "" },
+                {"ratings50F", "" },
+                {"length", "" },
+                {"endStationID", "" },
+                {"endStationName", "" },
                 {"R1", "" },
                 {"R0", "" },
                 {"X1", "" },
@@ -294,21 +302,18 @@ namespace ConvertToXML
         public override string ToString()
         {
             string result = "<line id=\"" + ID + "\">\n";
-            List<string> lineParameters = new List<string>() { "Name", "Voltage", "Ratings50F", "Length", "EndStationID", "EndStationName" };
-            List<string> impedances = new List<string>() { "R1", "X1", "R0", "R1" };
-            List<string> channels = new List<string>() { "VA", "VB", "VC", "IA", "IB", "IC", "IR" };
 
-            foreach (string field in lineParameters)
+            foreach (string field in m_lineParameters)
             {
                 if (m_attributes[field] != "")
                 {
-                    result += "<" + field.ToLower() + ">" + m_attributes[field] + "</" + field.ToLower() + ">\n";
+                    result += "<" + field + ">" + m_attributes[field] + "</" + field + ">\n";
                 }
             }
 
             bool impedancesIncluded = false;
 
-            foreach (string impedance in impedances)
+            foreach (string impedance in m_impedances)
             {
                 if (m_attributes[impedance] != "")
                 {
@@ -320,11 +325,11 @@ namespace ConvertToXML
             if (impedancesIncluded == true)
             {
                 result += "<impedances>\n";
-                foreach (string impedance in impedances)
+                foreach (string impedance in m_impedances)
                 {
                     if (m_attributes[impedance] != "")
                     {
-                        result += "<" + impedance.ToLower() + ">" + m_attributes[impedance] + "</" + impedance.ToLower() + ">\n";
+                        result += "<" + impedance + ">" + m_attributes[impedance] + "</" + impedance + ">\n";
                     }
                 }
                 result += "</impedances>\n";
@@ -332,7 +337,7 @@ namespace ConvertToXML
 
             bool channelsIncluded = false;
 
-            foreach (string impedance in impedances)
+            foreach (string impedance in m_impedances)
             {
                 if (m_attributes[impedance] != "")
                 {
@@ -344,42 +349,17 @@ namespace ConvertToXML
             if (channelsIncluded == true)
             {
                 result += "<channels>\n";
-                foreach (string channel in channels)
+                foreach (string channel in m_channels)
                 {
                     if (m_attributes[channel] != "")
                     {
-                        result += "<" + channel.ToLower() + ">" + m_attributes[channel] + "</" + channel.ToLower() + ">\n";
+                        result += "<" + channel + ">" + m_attributes[channel] + "</" + channel + ">\n";
                     }
                 }
                 result += "</channels>\n";
             }
 
             result += "</line\n>";
-
-            string resultBackup =
-                "<line id=\"" + ID + "\">\n"
-                + "<name>" + Name + "</name>\n"
-                + "<voltage>" + Voltage + "</voltage>\n"
-                + "<rating50F>" + Ratings50F + "</rating50F>\n"
-                + "<length>" + Length + "</length>\n"
-                + "<endStationID>" + EndStationID + "</endStationID>\n"
-                + "<endStationName>" + EndStationName + "</endStationName>\n"
-                + "<impedances>\n"
-                + "<R1>" + R1 + "</R1>\n"
-                + "<X1>" + X1 + "</X1>\n"
-                + "<R0>" + R0 + "</R0>\n"
-                + "<X0>" + X0 + "</X0>\n"
-                + "</impedances>\n"
-                + "<channels>\n"
-                + "<VA>" + VA + "</VA>\n"
-                + "<VB>" + VB + "</VB>\n"
-                + "<VC>" + VC + "</VC>\n"
-                + "<IA>" + IA + "</IA>\n"
-                + "<IB>" + IB + "</IB>\n"
-                + "<IC>" + IC + "</IC>\n"
-                + "<IR>" + IR + "</IR>\n"
-                + "</channels>\n"
-                + "</line\n>";
 
             return result;
         }
