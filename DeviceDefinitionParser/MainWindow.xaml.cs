@@ -39,7 +39,7 @@ namespace ConvertToXML
     {
         #region [ Members ]
         // Fields
-        private CSVtoXMLParser m_parser;
+        private DeviceDefinitionParser m_parser;
         private List<string> m_files;
         private Microsoft.Office.Interop.Excel.Application m_application;
 
@@ -52,7 +52,7 @@ namespace ConvertToXML
         {
             InitializeComponent();
             m_files = new List<string>();
-            m_parser = new CSVtoXMLParser();
+            m_parser = new DeviceDefinitionParser();
             m_application = new Microsoft.Office.Interop.Excel.Application();
             m_application.Visible = false;
             DataContext = m_parser;

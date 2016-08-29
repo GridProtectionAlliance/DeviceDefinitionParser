@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConvertToXML
 {
-    class CSVtoXMLParser
+    class DeviceDefinitionParser
     {
         #region [ Members ]
 
@@ -22,7 +22,7 @@ namespace ConvertToXML
 
         #region [ Constructors ]
 
-        public CSVtoXMLParser()
+        public DeviceDefinitionParser()
         {
             m_input = new string[0];
             m_result = new DeviceDefinition();
@@ -33,7 +33,7 @@ namespace ConvertToXML
             NovoselEtAl = true;
         }
 
-        public CSVtoXMLParser(string[] input)
+        public DeviceDefinitionParser(string[] input)
         {
             m_input = input;
             m_result = new DeviceDefinition();
@@ -45,7 +45,7 @@ namespace ConvertToXML
             ParseInput();
         }
 
-        public CSVtoXMLParser(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novoselEtAl)
+        public DeviceDefinitionParser(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novoselEtAl)
         {
             m_input = input;
             m_result = new DeviceDefinition();
