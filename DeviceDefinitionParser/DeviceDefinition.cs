@@ -141,9 +141,7 @@ namespace ConvertToXML
                 + "<analytics>\n"
                 + analytics
                 + "</analytics>\n"
-                + "<devices>\n"
                 + devices
-                + "</devices>\n"
                 + "</openFLE>\n";
 
             return result;
