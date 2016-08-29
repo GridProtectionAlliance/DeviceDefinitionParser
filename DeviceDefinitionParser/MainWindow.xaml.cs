@@ -123,7 +123,8 @@ namespace ConvertToXML
                 document = XDocument.Parse(m_parser.Result.ToString());
                 document.Save(outputXMLFile);
 
-                UserFeedback.Text = document.ToString();
+                ClearFileList();
+                UserFeedback.Text = "Tada!";
             }
             else
             {
