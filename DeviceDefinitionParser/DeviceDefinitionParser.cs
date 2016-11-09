@@ -181,7 +181,7 @@ namespace ConvertToXML
                     {
                         if (device.Attributes.ContainsKey(input[i]))
                         {
-                            device.Attributes[input[i]] = input[++i];
+                            device.Attributes[input[i]] = input[++i].Trim();
                         }
 
                         i++;
@@ -203,7 +203,7 @@ namespace ConvertToXML
                         {
                             if (line.Attributes.ContainsKey(input[i]))
                             {
-                                line.Attributes[input[i]] = input[++i];
+                                line.Attributes[input[i]] = input[++i].Trim();
                             }
 
                             i++;
