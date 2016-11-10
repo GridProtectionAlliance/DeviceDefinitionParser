@@ -23,6 +23,7 @@ namespace ConvertToXML
             m_attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 {"id", ""},
+                {"name", ""},
                 {"make", ""},
                 {"model", ""},
                 {"stationID", ""},
@@ -47,6 +48,19 @@ namespace ConvertToXML
             set
             {
                 m_attributes["id"] = value;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return m_attributes["name"];
+            }
+
+            set
+            {
+                m_attributes["name"] = value;
             }
         }
 
