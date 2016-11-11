@@ -45,7 +45,7 @@ namespace ConvertToXML
             ParseInput();
         }
 
-        public DeviceDefinitionParser(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novoselEtAl)
+        public DeviceDefinitionParser(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novosel)
         {
             m_input = input;
             m_result = new DeviceDefinition();
@@ -53,8 +53,8 @@ namespace ConvertToXML
             Reactance = reactance;
             Takagi = takagi;
             ModifiedTakagi = modifiedTakagi;
-            Novosel = novoselEtAl;
-            ParseInput(input, simple, reactance, takagi, modifiedTakagi, novoselEtAl);
+            Novosel = novosel;
+            ParseInput(input, simple, reactance, takagi, modifiedTakagi, novosel);
         }
 
         #endregion
@@ -154,13 +154,13 @@ namespace ConvertToXML
         {
             return ParseInput(Input, Simple, Reactance, Takagi, ModifiedTakagi, Novosel);
         }
-        public DeviceDefinition ParseInput(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novoselEtAl)
+        public DeviceDefinition ParseInput(string[] input, bool simple, bool reactance, bool takagi, bool modifiedTakagi, bool novosel)
         {
             m_result.Simple = simple;
             m_result.Reactance = reactance;
             m_result.Takagi = takagi;
             m_result.ModifiedTakagi = modifiedTakagi;
-            m_result.NovoselEtAl = novoselEtAl;
+            m_result.Novosel = novosel;
 
             int i = 0;
             try

@@ -14,7 +14,7 @@ namespace ConvertToXML
         private bool m_reactance;
         private bool m_takagi;
         private bool m_modifiedTakagi;
-        private bool m_novoselEtAl;
+        private bool m_novosel;
         private List<Device> m_devices;
 
         #endregion
@@ -82,16 +82,16 @@ namespace ConvertToXML
             }
         }
 
-        public bool NovoselEtAl
+        public bool Novosel
         {
             get
             {
-                return m_novoselEtAl;
+                return m_novosel;
             }
 
             set
             {
-                m_novoselEtAl = value;
+                m_novosel = value;
             }
         }
 
@@ -128,8 +128,8 @@ namespace ConvertToXML
             if (ModifiedTakagi)
                 analytics += "<faultLocation assembly=\"FaultAlgorithms.dll\" method=\"FaultAlgorithms.FaultLocationAlgorithms.ModifiedTakagi\" />\n";
 
-            if (NovoselEtAl)
-                analytics += "<faultLocation assembly=\"FaultAlgorithms.dll\" method=\"FaultAlgorithms.FaultLocationAlgorithms.NovoselEtAl\" />\n";
+            if (Novosel)
+                analytics += "<faultLocation assembly=\"FaultAlgorithms.dll\" method=\"FaultAlgorithms.FaultLocationAlgorithms.Novosel\" />\n";
 
             string devices = "";
             foreach (Device device in Devices)
