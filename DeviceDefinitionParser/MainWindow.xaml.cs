@@ -96,13 +96,12 @@ namespace ConvertToXML
 
             foreach (string excelFile in m_files)
             {
-                if (Path.GetExtension(excelFile) == ".xlsx")
+                if (Path.GetExtension(excelFile).ToLower() == ".xlsx")
                 {
                     string[] input = ReadExcelFile(excelFile);
                     m_parser.Input = input;
                     m_parser.ParseInput();
                 }
-                
             }
 
             if (m_files.Count > 0)

@@ -24,7 +24,7 @@ namespace ConvertToXML
         public Line()
         {
             m_lineParameters = new List<string>() { "name", "voltage", "ratings50F", "length", "endStationID", "endStationName" };
-            m_impedances = new List<string>() { "R1", "X1", "R0", "R1" };
+            m_impedances = new List<string>() { "R1", "X1", "R0", "X0" };
             m_channels = new List<string>() { "VA", "VB", "VC", "IA", "IB", "IC", "IR" };
 
             m_attributes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
