@@ -177,7 +177,7 @@ namespace ConvertToXML
                     device.ID = input[++i];
 
                     // Get Device Attributes
-                    while (i < input.Length && !input[i].Equals("line id="))
+                    while (i < input.Length && !input[i].Contains("line id"))
                     {
                         if (device.Attributes.ContainsKey(input[i]))
                         {
@@ -188,18 +188,18 @@ namespace ConvertToXML
                     }
 
                     // Get Lines
-                    while (i < input.Length && !input[i].Equals("device id="))
+                    while (i < input.Length && !input[i].Contains("device id"))
                     {
                         Line line = new Line();
 
                         // Get Line ID
-                        if (input[i].Equals("line id="))
+                        if (input[i].Contains("line id"))
                         {
                             line.ID = input[++i];
                         }
 
                         // Get line attributes
-                        while (i < input.Length && !input[i].Equals("line id=") && !input[i].Equals("device id="))
+                        while (i < input.Length && !input[i].Contains("line id") && !input[i].Contains("device id"))
                         {
                             if (line.Attributes.ContainsKey(input[i]))
                             {
