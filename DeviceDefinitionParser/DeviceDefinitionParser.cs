@@ -170,7 +170,7 @@ namespace ConvertToXML
                     Device device = new Device();
 
                     // Get Device ID
-                    while (!input[i].Equals("device id="))
+                    while (!input[i].Contains("device id"))
                     {
                         i++;
                     }
